@@ -46,4 +46,8 @@ public class OutputView {
         }
         return (productCount) + POSTFIX_PRODUCT_COUNT;
     }
+
+    public void printErrorMessage(String ErrorMessage) {
+        System.out.println(ErrorMessage);
+    }
 }

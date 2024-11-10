@@ -46,4 +46,49 @@ public class Inventory {
         InventoryDTO inventoryDTO = new InventoryDTO(productDTOs);
         return inventoryDTO;
     }
+
+    public boolean hasProduct(final String productName) {
+        if (promotionProducts.containsKey(productName)) {
+            return true;
+        }
+        if (normalProducts.containsKey(productName)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasEnoughProduct(final String itemName, final int count) {
+        int totalCount = 0;
+        totalCount += promotionProducts.get(itemName).getCount();
+        totalCount += normalProducts.get(itemName).getCount();
+        return totalCount >= count;
+    }
+
+    public List<Product> getProduct(final String itemName, final int count) {
+        int promotionProductCount = promotionProducts.get(itemName).getCount();
+        if (promotionProductCount >= count) {
+            return getProductFromPromotionProducts(itemName, count);
+        }
+        return getProductFromPromotionProductsAndNormalProducts(itemName, promotionProductCount, count);
+    }
+
+    private List<Product> getProductFromPromotionProducts(final String itemName, final int count) {
+        List<Product> products = new ArrayList<>();
+        Product product = promotionProducts.get(itemName).extractProductUnits(count);
+        products.add(product);
+        return products;
+    }
+
+    private List<Product> getProductFromPromotionProductsAndNormalProducts(
+            String itemName,
+            int promotionProductCount,
+            int count
+    ) {
+        List<Product> products = new ArrayList<>();
+        Product promotionProduct = promotionProducts.get(itemName).extractProductUnits(promotionProductCount);
+        Product normalProduct = normalProducts.get(itemName).extractProductUnits(count - promotionProductCount);
+        products.add(promotionProduct);
+        products.add(normalProduct);
+        return products;
+    }
 }
