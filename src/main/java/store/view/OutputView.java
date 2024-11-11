@@ -5,6 +5,8 @@ import store.dto.ReceiptDTO;
 
 import java.util.List;
 
+import static store.utils.ReceiptMessage.*;
+
 public class OutputView {
     private static final String GREETING_MESSAGE = "안녕하세요. W편의점입니다.";
     private static final String INVENTORY_MESSAGE = "현재 보유하고 있는 상품입니다.";
@@ -12,17 +14,7 @@ public class OutputView {
     private static final String POSTFIX_PRODUCT_COUNT = "개";
     private static final String NO_PRODUCT_COUNT = "재고 없음";
     private static final String RETURN_PRODUCT_MESSAGE = "%s %d개를 제외하고 계산하겠습니다.";
-
-    private static final String RECEIPT_HEADER = "==============W 편의점================";
-    private static final String RECEIPT_ITEM_HEADER = "상품명\t\t\t수량\t\t금액";
-    private static final String RECEIPT_ITEM_FORMAT = "%s\t\t%d \t%,d"; // 왼쪽 정렬과 자리 지정
-    private static final String RECEIPT_GIFT_HEADER = "=============증   정===============";
-    private static final String RECEIPT_GIFT_FORMAT = "%s\t\t%d";
-    private static final String RECEIPT_FOOTER = "====================================";
-    private static final String RECEIPT_TOTAL_FORMAT = "총구매액\t\t%d\t%,d";
-    private static final String RECEIPT_EVENT_DISCOUNT_FORMAT = "행사할인\t\t\t-%,d";
-    private static final String RECEIPT_MEMBERSHIP_DISCOUNT_FORMAT = "멤버십할인\t\t\t-%,d";
-    private static final String RECEIPT_PAYMENT_FORMAT = "내실돈\t\t\t %,d";
+    private static final String ENTER = "%n";
 
     public void printGreetingMessage() {
         printBlankLine();
@@ -72,32 +64,41 @@ public class OutputView {
 
     public void printReceipt(ReceiptDTO receiptDTO) {
         printBlankLine();
-        System.out.println(RECEIPT_HEADER);
-        System.out.println(RECEIPT_ITEM_HEADER);
+        System.out.println(RECEIPT_HEADER.getMessage());
+        System.out.println(RECEIPT_ITEM_HEADER.getMessage());
         printProductsInfo(receiptDTO);
-        System.out.println(RECEIPT_GIFT_HEADER);
+        System.out.println(RECEIPT_GIFT_HEADER.getMessage());
         printPromotionInfo(receiptDTO);
-        System.out.println(RECEIPT_FOOTER);
+        System.out.println(RECEIPT_FOOTER.getMessage());
         printPay(receiptDTO);
     }
 
     private void printProductsInfo(final ReceiptDTO receiptDTO) {
         receiptDTO.getProducts().forEach(p -> {
             int productTotalPrice = p.getProductCount() * p.getProductPrice();
-            System.out.printf(RECEIPT_ITEM_FORMAT + "%n", p.getProductName(), p.getProductCount(), productTotalPrice);
+            System.out.printf(
+                    RECEIPT_ITEM_FORMAT.getMessage() + ENTER,
+                    p.getProductName(),
+                    p.getProductCount(),
+                    productTotalPrice
+            );
         });
     }
 
     private void printPromotionInfo(final ReceiptDTO receiptDTO) {
         receiptDTO.getPromotionalProducts().forEach(p -> {
-            System.out.printf(RECEIPT_GIFT_FORMAT + "%n", p.getProductName(), p.getProductCount());
+            System.out.printf(RECEIPT_GIFT_FORMAT.getMessage() + ENTER, p.getProductName(), p.getProductCount());
         });
     }
 
     private void printPay(final ReceiptDTO receiptDTO) {
-        System.out.printf(RECEIPT_TOTAL_FORMAT + "%n", receiptDTO.getTotalCount(), receiptDTO.getTotalPrice());
-        System.out.printf(RECEIPT_EVENT_DISCOUNT_FORMAT + "%n", receiptDTO.getPromotionDiscount());
-        System.out.printf(RECEIPT_MEMBERSHIP_DISCOUNT_FORMAT + "%n", receiptDTO.getMembershipDiscount());
-        System.out.printf(RECEIPT_PAYMENT_FORMAT + "%n", receiptDTO.getAmountToPay());
+        System.out.printf(
+                RECEIPT_TOTAL_FORMAT.getMessage() + ENTER,
+                receiptDTO.getTotalCount(),
+                receiptDTO.getTotalPrice()
+        );
+        System.out.printf(RECEIPT_EVENT_DISCOUNT_FORMAT.getMessage() + ENTER, receiptDTO.getPromotionDiscount());
+        System.out.printf(RECEIPT_MEMBERSHIP_DISCOUNT_FORMAT.getMessage() + ENTER, receiptDTO.getMembershipDiscount());
+        System.out.printf(RECEIPT_PAYMENT_FORMAT.getMessage() + ENTER, receiptDTO.getAmountToPay());
     }
 }
