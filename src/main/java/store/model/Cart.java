@@ -42,16 +42,6 @@ public class Cart {
         return 0;
     }
 
-    public void decreaseProductCountInCart(final String name, final int promotionCount, final int normalCount) {
-        getProductInCart(name).forEach(product -> {
-            if (product.isPromotion()) {
-                product.setCount(product.getCount() - promotionCount);
-                return;
-            }
-            product.setCount(product.getCount() - normalCount);
-        });
-    }
-
     public void increaseProductCountInCart(final String name, final int promotionCount, final int normalCount) {
         getProductInCart(name).forEach(product -> {
             if (product.isPromotion()) {
@@ -62,8 +52,14 @@ public class Cart {
         });
     }
 
-    private List<Product> getProductInCart(final String name) {
-        return totalItems.stream().filter(product -> product.getName().equals(name)).toList();
+    public void decreaseProductCountInCart(final String name, final int promotionCount, final int normalCount) {
+        getProductInCart(name).forEach(product -> {
+            if (product.isPromotion()) {
+                product.setCount(product.getCount() - promotionCount);
+                return;
+            }
+            product.setCount(product.getCount() - normalCount);
+        });
     }
 
     public int getTotalPrice() {
@@ -91,5 +87,9 @@ public class Cart {
             }
         }
         throw new IllegalArgumentException("Product not found");
+    }
+
+    private List<Product> getProductInCart(final String name) {
+        return totalItems.stream().filter(product -> product.getName().equals(name)).toList();
     }
 }
