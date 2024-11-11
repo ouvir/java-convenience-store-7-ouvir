@@ -4,6 +4,7 @@ import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import store.service.InventoryService;
+import store.utils.Membership;
 import store.view.OutputView;
 
 import java.time.LocalDate;
@@ -115,6 +116,24 @@ class ApplicationTest extends NsTest {
                     "현재 콜라은(는) 1개를 무료로 더 받을 수 있습니다. 추가하시겠습니까? (Y/N)",
                     "콜라\t\t6 \t6,000"
             );
+        });
+    }
+
+    @Test
+    @DisplayName("4.멤버십 할인 적용 테스트")
+    void membership() {
+        assertSimpleTest(() -> {
+            run("[콜라-3]", "Y", "N");
+            assertThat(output()).contains("멤버십할인\t\t\t-0");
+        });
+    }
+
+    @Test
+    @DisplayName("4.멤버십 할인 적용 테스트 - 최대 할인 테스트")
+    void testMaxMembershipDiscount() {
+        assertSimpleTest(() -> {
+            run("[정식도시락-8]", "Y", "N");
+            assertThat(output()).contains("멤버십할인\t\t\t-8,000");
         });
     }
 
