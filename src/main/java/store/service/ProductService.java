@@ -17,7 +17,7 @@ public class ProductService {
         checkItemCount(cart, inventory);
     }
 
-    public List<Product> addToCart(final Map<String, Integer> orderItems, final Inventory inventory) {
+    public List<Product> addItems(final Map<String, Integer> orderItems, final Inventory inventory) {
         List<Product> cart = new ArrayList<>();
         orderItems.forEach((itemName, count) -> cart.addAll(inventory.getProduct(itemName, count)));
         return cart;

@@ -13,6 +13,12 @@ public class ProductDTO {
         this.promotionName = promotionName;
     }
 
+    public ProductDTO(String productName, int productPrice, int productCount) {
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productCount = productCount;
+    }
+
     public String getProductName() {
         return productName;
     }

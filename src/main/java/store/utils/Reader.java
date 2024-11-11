@@ -48,13 +48,4 @@ public class Reader {
             scanner.nextLine(); // 헤더 제거
         }
     }
-
-    public static void main(String[] args) throws FileNotFoundException {
-        List<List<String>> k = readFile("products.md");
-        for (List<String> strings : k) {
-            for (String string : strings) {
-                System.out.println(string);
-            }
-        }
-    }
 }
