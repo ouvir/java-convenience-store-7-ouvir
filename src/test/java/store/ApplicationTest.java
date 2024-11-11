@@ -74,6 +74,51 @@ class ApplicationTest extends NsTest {
         assertThat(output()).contains("안녕하세요. W편의점입니다.");
     }
 
+    @Test
+    @DisplayName("3.구매 상품에 대해 프로모션 적용")
+    void promotion() {
+        assertSimpleTest(() -> {
+            run("[콜라-9]", "N", "N");
+            assertThat(output()).contains(
+                    "==============W 편의점================",
+                    "상품명\t\t\t수량\t\t금액",
+                    "콜라\t\t9 \t9,000",
+                    "=============증   정===============",
+                    "콜라\t\t3",
+                    "====================================",
+                    "총구매액\t\t9\t9,000",
+                    "행사할인\t\t\t-3,000",
+                    "멤버십할인\t\t\t-0",
+                    "내실돈\t\t\t 6,000"
+            );
+        });
+    }
+
+    @Test
+    @DisplayName("3.구매 상품에 대해 프로모션 적용 예외 - 재고 부족")
+    void lackPromotionStock() {
+        assertSimpleTest(() -> {
+            run("[콜라-12]", "N", "N", "N");
+            assertThat(output()).contains(
+                    "현재 콜라 3개는 프로모션 할인이 적용되지 않습니다. 그래도 구매하시겠습니까? (Y/N)",
+                    "콜라 3개를 제외하고 계산하겠습니다."
+            );
+        });
+    }
+
+    @Test
+    @DisplayName("3.구매 상품에 대해 프로모션 적용 예외 - 프로모션 상품 추가 가능")
+    void canAddPromotionStock() {
+        assertSimpleTest(() -> {
+            run("[콜라-5]", "Y", "N", "N");
+            assertThat(output()).contains(
+                    "현재 콜라은(는) 1개를 무료로 더 받을 수 있습니다. 추가하시겠습니까? (Y/N)",
+                    "콜라\t\t6 \t6,000"
+            );
+        });
+    }
+
+
 
     @Override
     public void runMain() {
