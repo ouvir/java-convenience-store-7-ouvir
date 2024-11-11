@@ -19,7 +19,8 @@ public class Application {
                 new ProductService(),
                 new PromotionService(),
                 new MembershipService(),
-                new ReceiptService()
+                new ReceiptService(),
+                new CartService()
         );
     }
 }

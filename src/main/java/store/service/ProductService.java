@@ -12,12 +12,9 @@ import static store.exception.InputException.*;
 
 public class ProductService {
 
-    public void validateProducts(final Map<String, Integer> cart, final Inventory inventory) throws InputDataException {
-        checkExistItem(cart, inventory);
-        checkItemCount(cart, inventory);
-    }
-
-    public List<Product> addItems(final Map<String, Integer> orderItems, final Inventory inventory) {
+    public List<Product> validateProducts(final Map<String, Integer> orderItems, final Inventory inventory) throws InputDataException {
+        checkExistItem(orderItems, inventory);
+        checkItemCount(orderItems, inventory);
         List<Product> cart = new ArrayList<>();
         orderItems.forEach((itemName, count) -> cart.addAll(inventory.getProduct(itemName, count)));
         return cart;
@@ -37,5 +34,14 @@ public class ProductService {
         if (!validCount) {
             throw new InputDataException(OUT_OF_COUNT_ERROR);
         }
+    }
+
+    public Product makePromotionGift(final Product originProduct, final int promotionCount) {
+        return new Product(
+                originProduct.getName(),
+                originProduct.getPrice(),
+                promotionCount,
+                originProduct.getPromotionName()
+        );
     }
 }

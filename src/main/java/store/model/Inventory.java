@@ -106,7 +106,7 @@ public class Inventory {
         return products;
     }
 
-    public void returnProduct(final String itemName, final int promotionCount, final int normalCount) {
+    public void increaseProductCount(final String itemName, final int promotionCount, final int normalCount) {
         if (promotionCount > 0) {
             Product promotionProduct = promotionProducts.get(itemName);
             promotionProduct.setCount(promotionProduct.getCount() + promotionCount);

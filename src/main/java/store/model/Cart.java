@@ -28,11 +28,6 @@ public class Cart {
         freeItems.addAll(products);
     }
 
-    public List<Product> getPromotionProductList() {
-        return totalItems.stream()
-                .filter(Product::isPromotion)
-                .toList();
-    }
 
     public boolean hasNormalProduct(final String name) {
         return getProductInCart(name).stream().anyMatch(product -> !product.isPromotion());

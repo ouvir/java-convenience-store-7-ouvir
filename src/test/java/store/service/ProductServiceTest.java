@@ -54,7 +54,7 @@ class ProductServiceTest {
         Map<String, Integer> orderItems = new HashMap<>();
         orderItems.put("콜라", 7);
         // when
-        List<Product> cart = productService.addItems(orderItems, inventory);
+        List<Product> cart = productService.validateProducts(orderItems, inventory);
         Map<String, Integer> actual = new HashMap<>();
         for (Product product : cart) {
             actual.put(product.getPromotionName(), product.getCount());
