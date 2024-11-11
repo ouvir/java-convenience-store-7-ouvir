@@ -60,12 +60,12 @@ public class OutputView {
         return (productCount) + POSTFIX_PRODUCT_COUNT;
     }
 
-    public void printErrorMessage(String ErrorMessage) {
+    public void printErrorMessage(final String ErrorMessage) {
         printBlankLine();
         System.out.println(ErrorMessage);
     }
 
-    public void printReturnProduct(String productName, int productCount) {
+    public void printReturnProduct(final String productName, final int productCount) {
         printBlankLine();
         System.out.printf(RETURN_PRODUCT_MESSAGE + "%n", productName, productCount);
     }
@@ -81,20 +81,20 @@ public class OutputView {
         printPay(receiptDTO);
     }
 
-    private void printProductsInfo(ReceiptDTO receiptDTO) {
-        receiptDTO.getProducts().stream().forEach(p -> {
+    private void printProductsInfo(final ReceiptDTO receiptDTO) {
+        receiptDTO.getProducts().forEach(p -> {
             int productTotalPrice = p.getProductCount() * p.getProductPrice();
             System.out.printf(RECEIPT_ITEM_FORMAT + "%n", p.getProductName(), p.getProductCount(), productTotalPrice);
         });
     }
 
-    private void printPromotionInfo(ReceiptDTO receiptDTO) {
-        receiptDTO.getPromotionalProducts().stream().forEach(p -> {
+    private void printPromotionInfo(final ReceiptDTO receiptDTO) {
+        receiptDTO.getPromotionalProducts().forEach(p -> {
             System.out.printf(RECEIPT_GIFT_FORMAT + "%n", p.getProductName(), p.getProductCount());
         });
     }
 
-    private void printPay(ReceiptDTO receiptDTO) {
+    private void printPay(final ReceiptDTO receiptDTO) {
         System.out.printf(RECEIPT_TOTAL_FORMAT + "%n", receiptDTO.getTotalCount(), receiptDTO.getTotalPrice());
         System.out.printf(RECEIPT_EVENT_DISCOUNT_FORMAT + "%n", receiptDTO.getPromotionDiscount());
         System.out.printf(RECEIPT_MEMBERSHIP_DISCOUNT_FORMAT + "%n", receiptDTO.getMembershipDiscount());

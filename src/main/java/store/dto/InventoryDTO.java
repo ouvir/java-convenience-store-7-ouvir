@@ -1,12 +1,11 @@
 package store.dto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class InventoryDTO {
-    private List<ProductDTO> inventory = new ArrayList<>();
+    private List<ProductDTO> inventory;
 
-    public InventoryDTO(List<ProductDTO> inventory) {
+    public InventoryDTO(final List<ProductDTO> inventory) {
         this.inventory = inventory;
     }
 

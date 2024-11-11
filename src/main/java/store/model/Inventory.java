@@ -17,7 +17,7 @@ public class Inventory {
         addAllMissingNormalProducts();
     }
 
-    private void separateNormalAndPromotion(Product product) {
+    private void separateNormalAndPromotion(final Product product) {
         if (product.isPromotion()) {
             promotionProducts.put(product.getName(), product);
             return;
@@ -31,7 +31,7 @@ public class Inventory {
                 .forEach(this::addMissingNormalProducts);
     }
 
-    private void addMissingNormalProducts(String productName) {
+    private void addMissingNormalProducts(final String productName) {
         normalProducts.put(productName, promotionProducts.get(productName).makeNormalAndNoCountProduct());
     }
 
@@ -77,7 +77,7 @@ public class Inventory {
         return getProductFromPromotionProductsAndNormalProducts(itemName, promotionProductCount, count);
     }
 
-    private int getPromitionProductsCount(String itemName) {
+    private int getPromitionProductsCount(final String itemName) {
         if (promotionProducts.containsKey(itemName)) {
             return promotionProducts.get(itemName).getCount();
         }

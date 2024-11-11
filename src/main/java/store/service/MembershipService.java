@@ -1,11 +1,11 @@
 package store.service;
 
 import store.model.Cart;
-import store.model.Membership;
+import store.utils.Membership;
 
 public class MembershipService {
 
-    public int applyMembership(Cart cart) {
+    public int applyMembership(final Cart cart) {
         int price = cart.getTotalPrice();
         int appliedPromotionPrice = cart.getPromotionalItemsPrice();
 

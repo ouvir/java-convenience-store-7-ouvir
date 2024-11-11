@@ -12,13 +12,13 @@ public class ReceiptDTO {
     private final int amountToPay;
 
     public ReceiptDTO(
-            List<ProductDTO> products,
-            List<ProductDTO> promotionalProducts,
-            int totalCount,
-            int totalPrice,
-            int promotionDiscount,
-            int membershipDiscount,
-            int amountToPay
+            final List<ProductDTO> products,
+            final List<ProductDTO> promotionalProducts,
+            final int totalCount,
+            final int totalPrice,
+            final int promotionDiscount,
+            final int membershipDiscount,
+            final int amountToPay
     ) {
         this.products = products;
         this.promotionalProducts = promotionalProducts;

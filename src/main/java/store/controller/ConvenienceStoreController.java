@@ -34,7 +34,10 @@ public class ConvenienceStoreController {
             InputView inputView,
             OutputView outputView,
             InventoryService inventoryService,
-            ProductService productService, PromotionService promotionService, MembershipService membershipService, ReceiptService receiptService
+            ProductService productService,
+            PromotionService promotionService,
+            MembershipService membershipService,
+            ReceiptService receiptService
     ) {
         this.inputView = inputView;
         this.outputView = outputView;
@@ -115,7 +118,7 @@ public class ConvenienceStoreController {
                 .toList();
     }
 
-    private void checkExceptionForPromotion(Product product) {
+    private void checkExceptionForPromotion(final Product product) {
         // 프로모션 개수 부족 시 (카트에 프로모션 재고와 일반재고가 둘 다 있는 경우)
         if (cart.hasNormalProduct(product.getName())) {
             guidePromotionProductShortage(product);
@@ -127,14 +130,14 @@ public class ConvenienceStoreController {
         }
     }
 
-    private void addPromotionGiftToCart(List<Product> productsInPromotionPeriod) {
+    private void addPromotionGiftToCart(final List<Product> productsInPromotionPeriod) {
         List<Product> freeProducts = createFreeProducts(productsInPromotionPeriod);
         List<Product> productsInPromotion = createProductsInPromotion(productsInPromotionPeriod);
         cart.addAllFreeItems(freeProducts);
         cart.addAllPromotionalItems(productsInPromotion);
     }
 
-    private List<Product> createFreeProducts(List<Product> productsInPromotionPeriod) {
+    private List<Product> createFreeProducts(final List<Product> productsInPromotionPeriod) {
         List<Product> productsInPromotion = new ArrayList<>();
         productsInPromotionPeriod.forEach(product -> {
             Promotion promotion = promotionCatalog.getPromotion(product.getPromotionName());
@@ -147,7 +150,7 @@ public class ConvenienceStoreController {
         return productsInPromotion;
     }
 
-    private List<Product> createProductsInPromotion(List<Product> productsInPromotionPeriod) {
+    private List<Product> createProductsInPromotion(final List<Product> productsInPromotionPeriod) {
         List<Product> productsInPromotion = new ArrayList<>();
         productsInPromotionPeriod.forEach(product -> {
             Promotion promotion = promotionCatalog.getPromotion(product.getPromotionName());
@@ -160,19 +163,19 @@ public class ConvenienceStoreController {
         return productsInPromotion;
     }
 
-    private int calculateFreeItemCount(Product product, Promotion promotion) {
+    private int calculateFreeItemCount(final Product product, final Promotion promotion) {
         int buy = promotion.getBuy();
         int get = promotion.getGet();
         return product.getCount() / (buy + get) * get;
     }
 
-    private int calculatePromotionCount(Product product, Promotion promotion) {
+    private int calculatePromotionCount(final Product product, final Promotion promotion) {
         int notApplyPromotionCount = product.getCount() % (promotion.getBuy() + promotion.getGet());
         int totalItemCount = product.getCount();
         return totalItemCount - notApplyPromotionCount;
     }
 
-    private Product makePromotionGift(Product originProduct, int promotionCount) {
+    private Product makePromotionGift(final Product originProduct, int promotionCount) {
         return new Product(
                 originProduct.getName(),
                 originProduct.getPrice(),
@@ -181,7 +184,7 @@ public class ConvenienceStoreController {
         );
     }
 
-    private void guideAddPromotionProduct(Product product) {
+    private void guideAddPromotionProduct(final Product product) {
         if (isOkAddPromotionProduct(product.getName())) {
             // 상품 추가하기
             inventory.decreaseProductCount(product.getName(), 1, 0);
@@ -189,7 +192,7 @@ public class ConvenienceStoreController {
         }
     }
 
-    private boolean isOkAddPromotionProduct(String name) {
+    private boolean isOkAddPromotionProduct(final String name) {
         return handleInputWithRetry(() -> {
             String inputData = inputView.askAddPromotionProduct(name);
             checkYorNFormat(inputData);

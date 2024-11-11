@@ -24,13 +24,13 @@ public class InputView {
         return Console.readLine();
     }
 
-    public String askPurchaseAtRegularPrice(String productName, int count) {
+    public String askPurchaseAtRegularPrice(final String productName, final int count) {
         printBlankLine();
         System.out.printf(ASK_PURCHASE_AT_REGULAR_PRICE_MESSAGE + "%n", productName, count);
         return Console.readLine();
     }
 
-    public String askAddPromotionProduct(String productName) {
+    public String askAddPromotionProduct(final String productName) {
         printBlankLine();
         System.out.printf(ASK_ADD_PROMOTION_PRODUCT_MESSAGE + "%n", productName);
         return Console.readLine();

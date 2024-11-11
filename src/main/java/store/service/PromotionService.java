@@ -16,7 +16,7 @@ public class PromotionService {
         return promotions.stream().map(Promotion::new).toList();
     }
 
-    public int countNotApplyPromotionProduct(Promotion promotion, Product product) {
+    public int countNotApplyPromotionProduct(final Promotion promotion, final Product product) {
         // 프로모션 적용 불가 상품 개수 = 담은 프로모션 상품 개수 % (buy + get) + 일반 상품 개수
         return product.getCount() % (promotion.getBuy() + promotion.getGet());
     }

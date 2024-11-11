@@ -8,7 +8,7 @@ public enum InputException {
     
     private String errorMessage;
 
-    InputException(String errorMessage) {
+    InputException(final String errorMessage) {
         this.errorMessage = errorMessage;
     }
 

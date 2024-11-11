@@ -5,7 +5,7 @@ import store.model.Receipt;
 
 public class ReceiptService {
 
-    public Receipt makeReceipt(Cart cart, int membershipDiscount) {
+    public Receipt makeReceipt(final Cart cart, final int membershipDiscount) {
         return new Receipt(cart, membershipDiscount);
     }
 }

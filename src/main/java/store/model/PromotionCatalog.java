@@ -19,7 +19,7 @@ public class PromotionCatalog {
                 );
     }
 
-    public Promotion getPromotion(String promotionName) {
+    public Promotion getPromotion(final String promotionName) {
         return promotions.stream()
                 .filter(promotion -> promotion.getName().equals(promotionName))
                 .findFirst()

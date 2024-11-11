@@ -16,15 +16,15 @@ public class Cart {
         return freeItems;
     }
 
-    public void addAllNormalCart(List<Product> products) {
+    public void addAllNormalCart(final List<Product> products) {
         totalItems.addAll(products);
     }
 
-    public void addAllPromotionalItems(List<Product> products) {
+    public void addAllPromotionalItems(final List<Product> products) {
         promotionalItems.addAll(products);
     }
 
-    public void addAllFreeItems(List<Product> products) {
+    public void addAllFreeItems(final List<Product> products) {
         freeItems.addAll(products);
     }
 
@@ -34,11 +34,11 @@ public class Cart {
                 .toList();
     }
 
-    public boolean hasNormalProduct(String name) {
+    public boolean hasNormalProduct(final String name) {
         return getProductInCart(name).stream().anyMatch(product -> !product.isPromotion());
     }
 
-    public int getNormalProductCount(String name) {
+    public int getNormalProductCount(final String name) {
         for (Product product : totalItems) {
             if (product.getName().equals(name) && !product.isPromotion()) {
                 return product.getCount();
@@ -47,7 +47,7 @@ public class Cart {
         return 0;
     }
 
-    public void decreaseProductCountInCart(String name, int promotionCount, int normalCount) {
+    public void decreaseProductCountInCart(final String name, final int promotionCount, final int normalCount) {
         getProductInCart(name).forEach(product -> {
             if (product.isPromotion()) {
                 product.setCount(product.getCount() - promotionCount);
@@ -57,7 +57,7 @@ public class Cart {
         });
     }
 
-    public void increaseProductCountInCart(String name, int promotionCount, int normalCount) {
+    public void increaseProductCountInCart(final String name, final int promotionCount, final int normalCount) {
         getProductInCart(name).forEach(product -> {
             if (product.isPromotion()) {
                 product.setCount(product.getCount() + promotionCount);
@@ -67,7 +67,7 @@ public class Cart {
         });
     }
 
-    private List<Product> getProductInCart(String name) {
+    private List<Product> getProductInCart(final String name) {
         return totalItems.stream().filter(product -> product.getName().equals(name)).toList();
     }
 
@@ -89,7 +89,7 @@ public class Cart {
                 .reduce(0, Integer::sum);
     }
 
-    public int getSpecificProductPrice(String productName) {
+    public int getSpecificProductPrice(final String productName) {
         for (Product product : totalItems) {
             if (product.getName().equals(productName)) {
                 return product.getPrice();

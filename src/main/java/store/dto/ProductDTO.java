@@ -6,14 +6,20 @@ public class ProductDTO {
     private int productCount;
     private String promotionName;
 
-    public ProductDTO(String productName, int productPrice, int productCount, String promotionName) {
+    public ProductDTO(
+            final String productName,
+            final int productPrice,
+            final int productCount,
+            final String promotionName
+
+    ) {
         this.productName = productName;
         this.productPrice = productPrice;
         this.productCount = productCount;
         this.promotionName = promotionName;
     }
 
-    public ProductDTO(String productName, int productPrice, int productCount) {
+    public ProductDTO(final String productName, final int productPrice, final int productCount) {
         this.productName = productName;
         this.productPrice = productPrice;
         this.productCount = productCount;
