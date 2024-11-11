@@ -131,7 +131,7 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    @DisplayName("4.영수증 출력 테스트 - 최대 할인 테스트")
+    @DisplayName("5.영수증 출력 테스트")
     void printReceipt() {
         assertSimpleTest(() -> {
             run("[콜라-9]", "Y", "N");
@@ -146,6 +146,20 @@ class ApplicationTest extends NsTest {
                     "행사할인\t\t\t-3,000",
                     "멤버십할인\t\t\t-0",
                     "내실돈\t\t\t 6,000"
+            );
+        });
+    }
+
+    @Test
+    @DisplayName("6.추가 구매 여부 입력 받기 - 재고 유지 확인")
+    void printRetry() {
+        assertSimpleTest(() -> {
+            run("[콜라-3]", "N", "Y", "[콜라-3]", "N", "N");
+            assertThat(output()).contains(
+                    "- 콜라 1,000원 10개 탄산2+1",
+                    "- 콜라 1,000원 10개",
+                    "- 콜라 1,000원 7개 탄산2+1",
+                    "- 콜라 1,000원 10개"
             );
         });
     }
